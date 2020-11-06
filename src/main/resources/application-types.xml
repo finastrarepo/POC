@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="test" format="json">
+      <types:shape format="weave" example="examples/e.txt"><![CDATA[%dw 2.0
+
+type test = {|
+  companyName: String, 
+  entityStatus: {| id: String |}, 
+  parentid: Null, 
+  phone: String, 
+  fax: Null, 
+  url: Null, 
+  isinactive: Boolean, 
+  language: String, 
+  subsidiary: {| id: String |}, 
+  vatRegNumber: Null, 
+  currency: {| id: Number {"typeId": "int"} |}, 
+  externalid: String, 
+  custentity_region: {| id: String |}, 
+  custentity_legalname: String, 
+  custentity_customerowner: {| id: String |}, 
+  modifiedDate: String
+|} {"example": "{\\\"companyName\\\":\\\"test003\\\",\\\"entityStatus\\\":{\\\"id\\\":\\\"13\\\"},\\\"parentid\\\":null,\\\"phone\\\":\\\"9234567890\\\",\\\"fax\\\":null,\\\"url\\\":null,\\\"isinactive\\\":true,\\\"language\\\":\\\"en_GB\\\",\\\"subsidiary\\\":{\\\"id\\\":\\\"263\\\"},\\\"vatRegNumber\\\":null,\\\"currency\\\":{\\\"id\\\":13},\\\"externalid\\\":\\\"0013M000002Go58QAC\\\",\\\"custentity_region\\\":{\\\"id\\\":\\\"30\\\"},\\\"custentity_legalname\\\":\\\"test003\\\",\\\"custentity_customerowner\\\":{\\\"id\\\":\\\"1433865\\\"},\\\"modifiedDate\\\":\\\"2020-04-24T15:40:43.000Z\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="test1" format="xml">
+      <types:example format="xml" element="{urn:messages_2020_1.platform.webservices.netsuite.com}documentInfo" location="examples/test.xml"/>
+    </types:type>
+    <types:type name="test2" format="json">
+      <types:shape format="weave" example="examples/New Text Document (2).txt"><![CDATA[%dw 2.0
+
+type test2 = {| id: String |} {"example": "{\\\"id\\\":\\\"\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="st" format="json">
+      <types:shape format="weave" example="examples/New Text Document (3).txt"><![CDATA[%dw 2.0
+
+type st = {| Job_profiles: Array<String> |} {"example": "{\\\"Job_profiles\\\":[\\\"Field Operations Director II\\\",\\\"Assistant Regional Ministry Director\\\"]}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="octect" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#1ac13917-15b9-4fbd-bea6-e9d0bd5d0a0d">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="test"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#dd01497b-93d1-4f0a-864d-13e51c4e13fa">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="st"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#13abef76-784b-438e-a070-4a1bcd9353e8"/>
+</types:mule>

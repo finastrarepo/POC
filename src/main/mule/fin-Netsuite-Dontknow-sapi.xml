@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+    <apikit:config name="fin-Netsuite-Dontknow-sapi-config" api="fin-Netsuite-Dontknow-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <flow name="fin-Netsuite-Dontknow-sapi-main">
+        <http:listener config-ref="netsuite-integration-system-adapter-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <logger level="INFO" doc:name="Logger" doc:id="bde342d4-56e5-4749-9693-58910e1661bf" message="#[payload]"/>
+		<apikit:router config-ref="fin-Netsuite-Dontknow-sapi-config" />
+        
+    </flow>
+    <flow name="post:\projectSetup:application\json:fin-Netsuite-Dontknow-sapi-config">
+        <logger level="INFO" message="post:\projectSetup:application\json:fin-Netsuite-Dontknow-sapi-config" />
+		<flow-ref doc:name="netsuite-integration-system-adapter-implementation_invoice" doc:id="2f82adf9-2b99-46f4-9854-268824c2af66" name="netsuite-integration-system-adapter-implementation_invoice"/>
+    </flow>
+</mule>

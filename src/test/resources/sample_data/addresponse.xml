@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:messages_2020_1.platform.webservices.netsuite.com" xmlns:urn1="urn:core_2020_1.platform.webservices.netsuite.com">
+   <soapenv:Header>
+      <urn:documentInfo>
+         <urn:nsId>WEBSERVICES_3431250_SB99_052120209140705101080918870_c4c2a6d</urn:nsId>
+      </urn:documentInfo>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:addResponse>
+         <urn:writeResponse>
+            <urn1:status isSuccess="true" />
+            <!--Optional:-->
+            <urn:baseRef internalId="12041616" >
+               <!--Optional:-->
+               <urn1:name>12041616</urn1:name>
+            </urn:baseRef>
+         </urn:writeResponse>
+      </urn:addResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

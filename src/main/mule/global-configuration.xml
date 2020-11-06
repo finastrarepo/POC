@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:error-handler-plugin="http://www.mulesoft.org/schema/mule/error-handler-plugin" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/error-handler-plugin http://www.mulesoft.org/schema/mule/error-handler-plugin/current/mule-error-handler-plugin.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd">
+	<http:listener-config name="netsuite-integration-system-adapter-httpListenerConfig">
+        <http:listener-connection host="${http.host}" port="${http.port}" />
+    </http:listener-config>
+   <anypoint-mq:config name="Anypoint_MQ_Config" doc:name="Anypoint MQ Config" doc:id="419d2bd4-7dba-49b6-bff8-148eba6bfe2d" >
+		<anypoint-mq:connection url="${secure::mq-url}" clientId="${secure::client-id}" clientSecret="${secure::client-secret}" />
+	</anypoint-mq:config>
+	
+    <configuration-properties doc:name="Configuration properties" doc:id="7fba4c0b-9550-44ef-9896-07959c418507" file="env/${anypoint_application_environment}_properties.yaml" /> 
+	 <global-property doc:name="Global Property" doc:id="0de248ba-a668-4048-8b7b-e0f7598b1471" name="anypoint_application_environment" value="local" />  
+	
+    <http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="e287bb6e-0c37-4cfe-90a8-c9621285bdc0">
+        <http:request-connection protocol="HTTPS" connectionIdleTimeout="120000">
+        </http:request-connection>
+    </http:request-config>
+ <configuration doc:name="Configuration" doc:id="1db98642-c0fe-40bd-934e-f4f87d558af1" defaultErrorHandler-ref="global-configurationsError_Handler" /> 
+	
+	<global-property doc:name="Global Property" doc:id="86493d2d-9971-499b-b68b-a77efe5f1e6e" name="common-logging-framework-version" value="1.0.4" />
+	<import doc:name="Import" doc:id="b2295af4-ce68-470a-8e97-60a7d4d8d6ab" file="common-logging-framework.xml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="1acbcf62-b657-4380-97c9-7798bf9fef63" file="env/${anypoint_application_environment}_properties.yaml" key="${anypoint_application_encryption_key}"/>
+	  <global-property doc:name="Global Property" doc:id="8611af96-b8e8-4ad3-b122-5cbd054feb99" name="anypoint_application_encryption_key" value="gqikztodczvzrqssbfhvbrupobuznuoy" />
+	 <!-- <api-gateway:autodiscovery apiId="${apiId}" doc:name="API Autodiscovery" doc:id="91ec8d2d-cc8a-414c-bf58-0c95476f3739" flowRef="fin-Netsuite-Finance-sapi-main" /> -->
+	
+	
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="5e313ccd-9f29-4052-ac99-2c68bc5ad04e" >
+		<wsc:connection soapVersion="SOAP12" wsdlLocation="${soap.wsdlUrl}" service="${soap.wsdlService}" port="${soap.wsdlPort}" address="${soap.wsdlAddress}" >
+			<wsc:custom-transport-configuration >
+				<wsc:default-http-transport-configuration timeout="${soap.wsdlTimeout}" />
+			</wsc:custom-transport-configuration>
+		</wsc:connection>
+	
+		
+	</wsc:config>
+	
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="29ea9749-e4db-4a1a-84ba-81c1c6d848df" entryTtl="${objectStore.ttl}" entryTtlUnit="DAYS" expirationIntervalUnit="DAYS" />
+	
+	<os:object-store name="creditNotesOS" doc:name="Object store" doc:id="2ba1ada2-552f-4b4f-84ad-877145a9dc28" entryTtl="${objectStore.ttl}" entryTtlUnit="DAYS" expirationIntervalUnit="DAYS"/>
+	
+	
+	<error-handler name="global-configurationsError_Handler" doc:id="40a1db0d-6343-4029-b1aa-1b583379fce8" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="fbe94cdf-19f3-452c-999a-d3584f4cb710" >
+			<error-handler-plugin:on-error doc:name="Process Error" doc:id="8e34c2cf-fdae-411c-8fc4-9a8f0121e0dd" notFoundError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "The API has not been implemented"]' badRequestError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "There was an issue with your request message."]' unauthorizedError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "You have issues accessing the system"]' notAcceptableError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "One of the request or parameters is unacceptable"]' timeoutError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "You request to the server has been timed-out"]' unsupportedMediaTypeError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "Media Type not supported"]' tooManyRequestsError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "You have made too many requests to the server"]' serverError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "There is a server issue"]' methodNotAllowedError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "The method has not been implemented"]' connectivityError='#[if(error.muleMessage.typedValue.title != null) error.muleMessage.typedValue.title else if (error != null)  error.exception.detailMessage else "You have issues accessing the system"]' correlationId="#[vars.copyCustom_corrId default correlationId]"/>
+			<set-variable value="#[attributes.httpStatus]" doc:name="Set Variable" doc:id="d9b9dbbb-8e07-4d60-bef2-73dfbb08ec52" variableName="httpStatus"/>
+		</on-error-propagate>
+	</error-handler>
+	
+
+</mule>

@@ -1,0 +1,36 @@
+#%RAML 1.0
+title: fin-Netsuite-Dontknow-sapi
+description: This is a system api for Netsuite to cover the finance functions and it will process api in case if acts a source system. This specifications contains details for different objects peresent in netsuite.
+version: v1.0
+
+protocols:
+  - https
+  - http
+
+types:
+
+
+  invoice: !include datatypes/invoice-request-dataType.raml
+  authorizations: !include datatypes/authorizations-request-dataType.raml
+  successresponse: !include datatypes/response.raml
+
+  assignmentResponse: !include datatypes/assignment-response-dataType.raml
+
+
+uses:
+  lib: /exchange_modules/b969ea8e-6463-4f9b-9027-5cfaae2d33c2/rubix-common/1.0.17/rubix-common.raml
+
+
+
+/projectSetup:
+  description: This end point will be used to create invoice in Netsuite. It will get data from process api and for which source will be Kimble.
+  
+  post:
+    description: Get invoice Information by CLient Id
+    body:
+      application/json:
+        
+    responses:
+      200:
+        body:
+          application/json:

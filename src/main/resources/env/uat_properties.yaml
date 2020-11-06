@@ -1,0 +1,134 @@
+##Http Configuration
+http:
+  host: "0.0.0.0"
+  port: "8081"
+
+#method for generating token
+  methodPost: "POST"
+  methodGet: "GET"
+  methodPut: "PUT"
+  methodDelete: "DELETE"
+  methodPatch: "PATCH"
+
+## http request configuration
+httpRequest:
+  responseTimeout: "30000"
+
+#APP Id for autodiscovery
+apiId: "16350717"
+
+target: "Netsuite"
+
+##Salesforce-configuration
+tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"
+principal: "mulesoftintegration@finastra.com.rbxstaging"
+password: "![W7qwlCe9qet33z6Sj7CrKg==]"
+keyStore: "00D8E0000001OwG.jks"
+consumerKey: "![WPctJ7AdR30yHAN7VmxXaj9u0yf9XWnw5v0bG4S75Jxwq9lkZzktVAjz+kcuONKF3tY2E3f6nmDPF+Rtd3hn2YeQOZAts3GUVNR3shapHPpkCr+K/mLjKrc1/0AamdAb]"
+
+realm: "3431250_SB4"
+
+
+#####Netsuite Invoice Values for SOAP request
+soap:
+  wsdlUrl: "https://webservices.netsuite.com/wsdl/v2020_1_0/netsuite.wsdl"
+  wsdlAddress: "https://3431250-sb4.suitetalk.api.netsuite.com/services/NetSuitePort_2020_1"
+  wsdlService: "NetSuiteService"
+  wsdlPort: "NetSuitePort"
+  wsdlTimeout: "300000"
+  wsdlAddOperation: "add"
+  account: "3431250_SB4"
+  roleInternalId: "1281"
+  applicationId: "C568CF00-1F19-4EEC-8AFD-99C85D9DCF5F"
+  algorithm: "HMAC_SHA256"
+  wsdlSearchOperation: "search" 
+
+###Invoice Hardcoded Values
+invoice:
+  creditBody: "3"
+
+
+####LOGGER CONFIGURATION FOR ERROR PLUGIN
+api:
+  name: "fin-netsuite-finance-sapi"
+  version: "v1.0"  
+  
+###Request to PROCESS API
+httpRequestPaymentReceipts: "http://fin-customer-papi-1-0-uat.uk-e1.cloudhub.io/v1.0/paymentReceipts"  
+httpRequestCreditNotes: "http://fin-customer-papi-1-0-uat.uk-e1.cloudhub.io/v1.0/creditNotes"
+
+
+untilSuccessful:
+  retryNumber: "3"
+  retryTime: "10000"
+  
+###Cron Expression for Payment Receipt                                              
+cronExpressionPaymentReceipt: "0 0 0/1 1/1 * ? *"    
+
+###Object Store 
+objectStore:
+  ttl: "7"   
+  
+###Return Authorization HardCoded Values:
+mysFunction : "5"
+reaconCode: "5"
+specReason: "1"
+rootCause: "128"  
+
+
+###LOG OBJECT VALUES
+invoiceLog: "Kimble-Netsuite-InvoiceInterface"
+returnAuthLog: "Kimble-Netsuite-ReturnAuthorizationInterface"
+revRecLog: "Kimble-Netsuite-revenueRecognitionInterface"
+
+####Saved search InternalID
+paymentReceiptSearch: "8749"
+creditNotesSearch: "8750"
+
+##Cron Expression for Credit Notes
+cronExpressionCreditNotes: "0 0 0/1 1/1 * ? *"
+
+
+###Kimble Interfaces Netsuite Details For WSDL Call
+kimbleSoapNetsuite:
+  consumerKey: "![bKl7azVJ0tMwK/PuHgrzPqwJw1wIsx/mQ0xWZzh1CaR9mrrWqEF9EN56kM3/Wjpqe/kkn1NXA0DDsJPq3RQ+l4iln3OCOsVwlUQWvXwR1bE=]"
+  consumerSecret: "![QWY5AhpHeNjNJlzOuKS3BcBlRQf8EQl9hDa42A2bm2nAxIyW6ulYk51XNBiz2wHuvOb/6vpMeGD3mAmuaXB7qx9a3IdEcg1fq2JFh2w1S/k=]"
+  token: "![MHr0X36HcuSOvbTvyUf1nTu/dNsAM7kNq6HLaaUSi5tCVrrCK9KzoamTubpxj4bXDTJcByENrPdP7EMuqm1vHksHG9vLxgJRSY7jTadoYFM=]"
+  tokenSecret: "![d7bSifB2c0RhX4vDwzrYNxB3+I59/hlz63sbwlO5SgfmU/gwO4B8EeS9RctNnNMKK+fSo8NfAzv2tpeP9aYKd2aKcgs5Dap20+qa4YXldOI=]"
+  realm: "3431250_SB4"
+
+
+###Kimble Interfaces Netsuite Details For Rest Call
+kimbleRestNetsuite:
+  consumerKey: "![bKl7azVJ0tMwK/PuHgrzPqwJw1wIsx/mQ0xWZzh1CaR9mrrWqEF9EN56kM3/Wjpqe/kkn1NXA0DDsJPq3RQ+l4iln3OCOsVwlUQWvXwR1bE=]"
+  consumerSecret: "![QWY5AhpHeNjNJlzOuKS3BcBlRQf8EQl9hDa42A2bm2nAxIyW6ulYk51XNBiz2wHuvOb/6vpMeGD3mAmuaXB7qx9a3IdEcg1fq2JFh2w1S/k=]"
+  token: "![MHr0X36HcuSOvbTvyUf1nTu/dNsAM7kNq6HLaaUSi5tCVrrCK9KzoamTubpxj4bXDTJcByENrPdP7EMuqm1vHksHG9vLxgJRSY7jTadoYFM=]"
+  tokenSecret: "![d7bSifB2c0RhX4vDwzrYNxB3+I59/hlz63sbwlO5SgfmU/gwO4B8EeS9RctNnNMKK+fSo8NfAzv2tpeP9aYKd2aKcgs5Dap20+qa4YXldOI=]"
+  realm: "3431250_SB4"
+  urlHost: "3431250-sb4.suitetalk.api.netsuite.com"
+  urlPathAssignment: "/services/rest/record/v1/job/"
+  urlPathSalesOrder: "/services/rest/record/v1/salesorder/"
+  urlPathDepartment: "/services/rest/record/v1/department/eid:"   
+  
+##MQ Configuration
+mq-url: "https://mq-eu-west-2.anypoint.mulesoft.com/api/v1"
+client-id: "![wCuh31g5Ymke3kozALIw66CvuWvHlx76lpUGpKQbHmQ3JtFlPOo9/P3wYs6SIopr]"
+client-secret: "![39j3kmME8zmewCJPUJAaiz6SAZPB6myPqKyCUicgom6VEho2ieMqjABwZehEB1t+]"
+
+revRecMq: "revenue-recognizations-queue"
+adjustMq: "revenue-adjustments-queue"
+successEx: "success-logs-ex"
+businessErrorEx: "business-errors-ex"
+systemErrorEx: "system-errors-ex"  
+
+circuitBreaker: 
+  errortypes: "MULE:UNKNOWN,MULE:EXPRESSION,APP:HTPP_ERROR,MULE:RETRY_EXHAUSTED,HTTP:GATEWAY_TIMEOUT,HTTP:CLIENT_SECURITY,HTTP:BAD_GATEWAY,HTTP:TIMEOUT,HTTP:CONNECTIVITY,HTTP:FORBIDDEN,HTTP:INTERNAL_SERVER_ERROR,HTTP:UNAUTHORIZED,HTTP:TOO_MANY_REQUESTS,HTTP:PARSING,HTTP:SERVICE_UNAVAILABLE,WSC:CANNOT_DISPATCH, WSC:CONNECTIVITY,WSC:ENCODING, WSC:INVALID_WSDL, WSC:RETRY_EXHAUSTED, WSC:SOAP_FAULT, WSC:TIMEOUT"
+  errorCount: "5"
+  tripTimeoutMinutes: "2"
+  
+
+#log category
+log:
+  payload: "com.finastra.log"
+  logEntry: "com.finastra.logEntry"
+  logError: "com.finastra.logError"              

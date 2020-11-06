@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd">
+	<sub-flow name="common-utils-publish-successOrBusiness-implementation" doc:id="73930e80-ef5a-4774-a5a6-1c91b6282713" >
+		<logger level="INFO" doc:name="isSuccess?" doc:id="6d3bc727-8738-404d-bcae-01070fd93cab" message='#[%dw 2.0
+output application/json
+---
+if(vars.isSuccess.message ~= "true")  "Sending data to Success exchange" else "Sending data to Business Exchange"]'/>
+		<choice doc:name="Is Success or Business Error?" doc:id="d8b21334-6964-42f4-8c49-4a2647e22f40" >
+				<when expression='#[vars.isSuccess.message ~= "true"]'>
+					<anypoint-mq:publish doc:id="889a95d9-a3a0-46f6-a77e-e52bddfb4ba9" config-ref="Anypoint_MQ_Config" destination="${secure::businessErrorEx}" doc:name="Publish to Success Exchange">
+				<anypoint-mq:body><![CDATA[#[vars.logData]]]></anypoint-mq:body>
+				<anypoint-mq:properties><![CDATA[#[output application/java
+---
+{
+	"isSuccess" : "true"
+}]]]></anypoint-mq:properties>
+			</anypoint-mq:publish>
+				</when>
+				<otherwise >
+					<anypoint-mq:publish doc:name="Publish to Business Error Exchange" doc:id="c149c633-f3d5-453e-a113-d75b9720d544" config-ref="Anypoint_MQ_Config" destination="${secure::businessErrorEx}">
+						<anypoint-mq:body ><![CDATA[#[vars.logData]]]></anypoint-mq:body>
+					</anypoint-mq:publish>
+				</otherwise>
+			</choice>
+	</sub-flow>
+	<sub-flow name="common-utils-publish-systemError-implementation" doc:id="28466927-bf8c-4e28-9eed-27d23e7e6a7c" >
+		<logger level="INFO" doc:name="Logger" doc:id="84bd92fd-d760-4a93-a818-276947b2a34f" />
+		<anypoint-mq:publish doc:name="Publish to SystemError" doc:id="11c82221-431d-4ade-bad9-1bba8d09b43e" config-ref="Anypoint_MQ_Config" destination="${secure::systemErrorEx}">
+							<anypoint-mq:body ><![CDATA[#[vars.logData]]]></anypoint-mq:body>
+						</anypoint-mq:publish>
+	</sub-flow>
+</mule>

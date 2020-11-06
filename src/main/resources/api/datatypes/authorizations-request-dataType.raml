@@ -1,0 +1,39 @@
+#%RAML 1.0 DataType
+
+description: Return Authorization Objects
+properties:
+  invoiceId:
+    required: true
+    type: string
+    description: createdFrom field coming from kimble will be used as invoiceId as cannoical mapping
+  kimbleCreditNoteNumber:
+    required: true
+    type: string
+    description: tranID for credit memo
+  invoiceDate:
+    required: true
+    type: string
+    description: tranDate for credit memo with format yyyy-mm-dd
+
+  quantity:
+    required: true
+    type: number
+    description: quantity for credit memo
+  rate:
+    required: true
+    type: number
+    description: rate for credit memo
+  orderLineId:
+    required: true
+    type: number
+    description: netsuite internal id
+  creditReason:
+    required: true
+    type: string
+    description: credit reason
+  employeeId:
+    required: true
+    minLength: 0
+    maxLength: 80
+    type: string
+    description: employeeId 

@@ -1,0 +1,235 @@
+{
+    "links": [
+        {
+            "rel": "self",
+            "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/job/2344503"
+        }
+    ],
+    "actualTime": "0:00",
+    "allowAllResourcesForTasks": false,
+    "allowExpenses": true,
+    "allowTime": true,
+    "companyName": "GS MEA UBN - Trade Transformation FBTI FP ON136829",
+    "currency": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1"
+            }
+        ],
+        "id": "1",
+        "refName": "USD"
+    },
+    "currencyPrecision": 2,
+    "custentity_cashaccounting": false,
+    "custentity_costcentre": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/department/216"
+            }
+        ],
+        "id": "216",
+        "refName": "Services : Global Services : GS Project Management : B320 GS Legacy M Projects"
+    },
+    "custentity_excludeicrecharge": false,
+    "custentity_exportedfromsfdc": true,
+    "custentity_forecastprobability": "Closed",
+    "custentity_misysref": "ON136829",
+    "custentity_ns_project_service_type": "Upgrade Non Upgrade Factory-Upgrade & New Module",
+    "custentity_oa_copy_approvers": true,
+    "custentity_oa_copy_cost_type": false,
+    "custentity_oa_copy_custom_fields": true,
+    "custentity_oa_copy_dashboard_settings": false,
+    "custentity_oa_copy_expense_policy": false,
+    "custentity_oa_copy_invoice_layout": false,
+    "custentity_oa_copy_issues": false,
+    "custentity_oa_copy_loaded_cost": false,
+    "custentity_oa_copy_notification_settings": false,
+    "custentity_oa_copy_prbill_auto_settings": false,
+    "custentity_oa_copy_prbill_rules": false,
+    "custentity_oa_copy_project_budget": false,
+    "custentity_oa_copy_project_pricing": false,
+    "custentity_oa_copy_revrec_rules": false,
+    "custentity_oa_create_project_workspace": false,
+    "custentity_oa_export_to_openair": true,
+    "custentity_oa_project_currency": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1"
+            }
+        ],
+        "id": "1",
+        "refName": "USD"
+    },
+    "custentity_oa_project_stage": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customrecord_oa_project_stages/5"
+            }
+        ],
+        "id": "5",
+        "refName": "Live"
+    },
+    "custentity_oa_project_template": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customrecord_oa_project_templates/10"
+            }
+        ],
+        "id": "10",
+        "refName": "TEMPLATE - PS - Large Billable Project - FP"
+    },
+    "custentity_oa_revrec_auto_settings": false,
+    "custentity_oaprojectnumber": "22653",
+    "custentity_owner": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/employee/2344935"
+            }
+        ],
+        "id": "2344935",
+        "refName": "716863-IN1 Kumarappan, Sundaram"
+    },
+    "custentity_pj_productline": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_misys_product_line/4"
+            }
+        ],
+        "id": "4",
+        "refName": "Corporate Banking"
+    },
+    "custentity_product": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/classification/125"
+            }
+        ],
+        "id": "125",
+        "refName": "Corporate Banking : Trade Innovation (f)"
+    },
+    "custentity_proj_int_with_empl_att": false,
+    "custentity_proj_mnemonic": "PR017708",
+    "custentity_projectdirector": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/employee/1296290"
+            }
+        ],
+        "id": "1296290",
+        "refName": "710724-AE2 Stanley, Sheen"
+    },
+    "custentity_ps_practice_name": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_ps_practice_name/24"
+            }
+        ],
+        "id": "24",
+        "refName": "MEA: Core Banking Africa"
+    },
+    "custentity_ps_practice_unique_code": "MEAB360A",
+    "custentity_ps_territory_prj": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_ps_territory/6"
+            }
+        ],
+        "id": "6",
+        "refName": "ME1"
+    },
+    "custentity_region": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/location/251"
+            }
+        ],
+        "id": "251",
+        "refName": "MEA : SSA : Nigeria"
+    },
+    "custentity_sfdc_opp_probability": 100.0,
+    "custentity_sfdcopportunityclosedate": "2018-02-28",
+    "custentity_sfdcopportunityforecastcatego": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_sfdcopportunityforecastcate/6"
+            }
+        ],
+        "id": "6",
+        "refName": "Closed"
+    },
+    "custentity_sfdcopportunitystage": "Closed Won",
+    "custentity_syncedtosfdc": true,
+    "custentity_topopportunity": false,
+    "customForm": "57",
+    "dateCreated": "2018-03-07T10:01:00Z",
+    "entityId": "PR017708 GS MEA UBN - Trade Transformation FBTI FP ON136829",
+    "entityStatus": "2",
+    "estimatedgrossprofit": 0.0,
+    "estimatedlaborcost": 0.0,
+    "estimatedlaborrevenue": 0.0,
+    "estimatedTime": "0:00",
+    "estimatedtimeoverride": "0:00",
+    "externalId": "a3D0J000000CHkeUAG",
+    "fxRate": 1.0,
+    "id": "2344503",
+    "includeCrmTasksInTotals": false,
+    "isBaseCurrency": true,
+    "isExemptTime": false,
+    "isinactive": false,
+    "isJob": true,
+    "isProductiveTime": true,
+    "isUtilizedTime": true,
+    "jobResources": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/job/2344503/jobResources"
+            }
+        ]
+    },
+    "language": "en_GB",
+    "lastModifiedDate": "2018-06-27T11:16:00Z",
+    "limitTimeToAssignees": false,
+    "materializeTime": true,
+    "parent": {
+        "links": [],
+        "id": "2341102",
+        "refName": "1057375-UKN Union Bank of Nigeria PLC (Parent)-LU7/Parent : Union Bank of Nigeria PLC (Group)-LU7/Group : Union Bank of Nigeria Plc-UKN/Nigeria"
+    },
+    "percentCompleteOverride": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/job/2344503/percentCompleteOverride"
+            }
+        ]
+    },
+    "percentTimeComplete": 0.0,
+    "stage": "JOB",
+    "startdate": "2018-04-29",
+    "subsidiary": {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://3431250-sb99.suitetalk.api.netsuite.com/services/rest/record/v1/subsidiary/232"
+            }
+        ],
+        "id": "232",
+        "refName": "UKN-Finastra Global Limited -Nigeria"
+    },
+    "timeapproval": "1",
+    "timeRemaining": "0:00"
+}

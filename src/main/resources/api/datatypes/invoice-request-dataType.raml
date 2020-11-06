@@ -1,0 +1,40 @@
+#%RAML 1.0 DataType
+
+displayName: Invoice Object
+properties:
+  salesOrderId:
+    required: true
+    type: string 
+    description: id for which invoice will be created 
+  kimbleInvNumber:
+    required: true
+    type: string
+    description: Kimble-generated invoice number
+  invoiceDate:
+    required: true
+    type: string
+    
+    description: invoice date refers to transcation date with format YYYY-MM-DD
+  rate:
+    required: true
+    type: number
+    description: rate of the line item to be billed (amount is taken from rate x quantity)
+  quantity:
+    required: true
+    type: number
+    description: quantity of the line item to be billed
+  description?:
+    type: string
+    description: comments for invoice
+  orderLineNumber:
+    required: true
+    type: number
+    description: order line number
+  poReference:
+    required: false
+    type: string
+    description: PO Reference Number
+  notes:
+    required: false
+    type: string
+    description: Notes

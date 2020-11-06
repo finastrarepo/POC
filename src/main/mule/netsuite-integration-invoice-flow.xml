@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:netsuite="http://www.mulesoft.org/schema/mule/netsuite"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/netsuite http://www.mulesoft.org/schema/mule/netsuite/current/mule-netsuite.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd">
+	<sub-flow name="netsuite-integration-system-adapter-implementation_invoice" doc:id="89d3f54e-b3e6-424b-977b-fcc47479a76e" >
+		<set-variable value="#[payload]" doc:name="jobPayload" doc:id="582cbf62-2472-4c05-a10d-ce0cb7db0a68" variableName="jobPayload" mimeType="application/json"/>
+		<flow-ref doc:name="oauth-header-generator-soapHeader" doc:id="693fceb1-cbc0-4b7a-9cf8-f4c4be3ff55a" name="oauth-header-generator-soapHeader"/>
+		<ee:transform doc:name="requestPayload" doc:id="5d5d0c76-da4c-4836-9860-78b6576d5ada" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns soap http://schemas.xmlsoap.org/soap/envelope/
+ns soapEnc http://schemas.xmlsoap.org/soap/encoding/
+ns ns01 urn:messages_2020_1.platform.webservices.netsuite.com
+ns ns6 urn:relationships_2020_1.lists.webservices.netsuite.com
+ns ns8 urn:core_2020_1.platform.webservices.netsuite.com
+ns ns3 urn:messages.platform.webservices.netsuite.com
+
+---
+//payload.ns0#Envelope.ns0#Body.add.record.itemList
+{
+    soap#Envelope @("soap:encodingStyle" : "http://schemas.xmlsoap.org/soap/encoding/", 
+ "xmlns:messages" : "urn:messages_2020_1.platform.webservices.netsuite.com",
+ "xmlns:accountingLists":"urn:accounting_2020_1.lists.webservices.netsuite.com",
+ "xmlns:employeesLists":"urn:employees_2020_1.lists.webservices.netsuite.com", 
+ "xmlns:employeesTransactionsTypes":"urn:types.employees_2020_1.transactions.webservices.netsuite.com" , 
+ "xmlns:demandplanningTransactions":"urn:demandplanning_2020_1.transactions.webservices.netsuite.com", 
+ "xmlns:common":"urn:common_2020_1.platform.webservices.netsuite.com", 
+ "xmlns:commonTypes":"urn:types.common_2020_1.platform.webservices.netsuite.com" , "xmlns:accountingListsTypes": 
+ "urn:types.accounting_2020_1.lists.webservices.netsuite.com", 
+ "xmlns:customizationSetup":"urn:customization_2020_1.setup.webservices.netsuite.com", 
+ "xmlns:inventoryTransactionsTypes": "urn:types.inventory_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:filecabinetDocuments":"urn:filecabinet_2020_1.documents.webservices.netsuite.com", 
+ "xmlns:bankTransactionsTypes":"urn:types.bank_2020_1.transactions.webservices.netsuite.com", 
+ "xmlns:communicationGeneralTypes":"urn:types.communication_2020_1.general.webservices.netsuite.com", 
+ "xmlns:customizationSetupTypes":"urn:types.customization_2020_1.setup.webservices.netsuite.com" , 
+ "xmlns:supplychainListsTypes":"urn:types.supplychain_2020_1.lists.webservices.netsuite.com" , 
+ "xmlns:core":"urn:core_2020_1.platform.webservices.netsuite.com",
+ "xmlns:coreTypes":"urn:types.core_2020_1.platform.webservices.netsuite.com", 
+ "xmlns:soapenc":"http://schemas.xmlsoap.org/soap/encoding/", 
+ "xmlns:supplychainLists":"urn:supplychain_2020_1.lists.webservices.netsuite.com", 
+ "xmlns:demandplanningTransactionsTypes":"urn:types.demandplanning_2020_1.transactions.webservices.netsuite.com" ,
+ "xmlns:websiteLists":"urn:website_2020_1.lists.webservices.netsuite.com",
+ "xmlns:salesTransactions":"urn:sales_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:salesTransactionsTypes":"urn:types.sales_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:relationshipsLists":"urn:relationships_2020_1.lists.webservices.netsuite.com", 
+ "xmlns:inventoryTransactions":"urn:inventory_2020_1.transactions.webservices.netsuite.com", 
+ "xmlns:employeesListsTypes":"urn:types.employees_2020_1.lists.webservices.netsuite.com", 
+ "xmlns:xsi":"http://www.w3.org/2001/XMLSchema-instance", 
+ "xmlns:customersTransactions":"urn:customers_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:schedulingActivitiesTypes":"urn:types.scheduling_2020_1.activities.webservices.netsuite.com", 
+ "xmlns:financialTransactions":"urn:financial_2020_1.transactions.webservices.netsuite.com", 
+ "xmlns:xsd":"http://www.w3.org/2001/XMLSchema", 
+ "xmlns:relationshipsListsTypes":"urn:types.relationships_2020_1.lists.webservices.netsuite.com",
+ "xmlns:employeesTransactions":"urn:employees_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:faults":"urn:faults_2020_1.platform.webservices.netsuite.com",
+ "xmlns:marketingListsTypes":"urn:types.marketing_2020_1.lists.webservices.netsuite.com",
+ "xmlns:communicationGeneral":"urn:communication_2020_1.general.webservices.netsuite.com",
+ "xmlns:faultsTypes":"urn:types.faults_2020_1.platform.webservices.netsuite.com",
+ "xmlns:supportListsTypes":"urn:types.support_2020_1.lists.webservices.netsuite.com",
+ "xmlns:websiteListsTypes":"urn:types.website_2020_1.lists.webservices.netsuite.com",
+ "xmlns:purchasesTransactions":"urn:purchases_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:financialTransactionsTypes":"urn:types.financial_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:schedulingActivities":"urn:scheduling_2020_1.activities.webservices.netsuite.com",
+ "xmlns:bankTransactions":"urn:bank_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:marketingLists":"urn:marketing_2020_1.lists.webservices.netsuite.com",
+ "xmlns:customersTransactionsTypes":"urn:types.customers_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:purchasesTransactionsTypes":"urn:types.purchases_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:generalTransactions":"urn:general_2020_1.transactions.webservices.netsuite.com",
+ "xmlns:filecabinetDocumentsTypes":"urn:types.filecabinet_2020_1.documents.webservices.netsuite.com" ): {
+              soap#Header:{
+            ns01#tokenPassport:{
+                ns8#account : p('kimbleSoapNetsuite.realm'),
+                ns8#consumerKey: p('secure::kimbleSoapNetsuite.consumerKey'),
+                ns8#token: p('secure::kimbleSoapNetsuite.token'),
+                ns8#nonce: (vars.oAuthHeaderFinal splitBy(","))[0],
+                ns8#timestamp: (vars.oAuthHeaderFinal splitBy(","))[1],
+                ns8#signature @("algorithm": p('soap.algorithm')): (vars.oAuthHeaderFinal splitBy(","))[2] },
+                
+       ns3#preferences :{
+        ns01#ignoreReadOnlyFields  :true } ,
+   
+    ns3#searchPreferences  :{
+        ns01#bodyFieldsOnly : true ,
+        ns01#pageSize :50   }
+    
+        	
+        
+        	
+        },
+        
+    
+    soap#Body:{
+        ns01#upsertList @("xmlns:ns5":"urn:filecabinet_2020_1.documents.webservices.netsuite.com" ,
+		"xmlns:ns6":"urn:relationships_2020_1.lists.webservices.netsuite.com" ,
+		"xmlns:ns3":"urn:common_2020_1.platform.webservices.netsuite.com" ,
+		"xmlns:ns4":"urn:communication_2020_1.general.webservices.netsuite.com" ,
+		"xmlns:ns9":"urn:sales_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns7":"urn:support_2020_1.lists.webservices.netsuite.com" ,
+		"xmlns:ns8":"urn:accounting_2020_1.lists.webservices.netsuite.com" ,
+		
+		"xmlns:ns19":"urn:employees_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns18":"urn:website_2020_1.lists.webservices.netsuite.com" ,
+		"xmlns:ns2":"urn:scheduling_2020_1.activities.webservices.netsuite.com" ,
+		"xmlns:ns17":"urn:employees_2020_1.lists.webservices.netsuite.com" ,
+		"xmlns:ns16":"urn:customization_2020_1.setup.webservices.netsuite.com" ,
+		"xmlns:ns15":"urn:general_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns14":"urn:inventory_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns13":"urn:bank_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns24": "urn:messages_2020_1.platform.webservices.netsuite.com" ,
+		"xmlns:ns12":"urn:financial_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns23":"urn:faults_2020_1.platform.webservices.netsuite.com" ,
+		"xmlns:ns11":"urn:customers_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns22":"urn:supplychain_2020_1.lists.webservices.netsuite.com" ,
+		"xmlns:ns10":"urn:purchases_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns21":"urn:demandplanning_2020_1.transactions.webservices.netsuite.com" ,
+		"xmlns:ns20":"urn:marketing_2020_1.lists.webservices.netsuite.com") : {
+             ns01#record @("xsi:type":"ns6:Job","externalId" : "a3D5I000000LBFEUA4", "xmlns:xsi" : "http://www.w3.org/2001/XMLSchema-instance"):{
+                nullFieldList:{
+                	
+                        name  : "custentity_productservicetype" ,
+                        name : "custentity_opportunitynumber" ,
+                        
+                        name : "custentity_projecthierarchy" ,
+                        
+                        name  : "custentity_gscmanager" ,
+                        
+                        name  : "custentity_clarityid" ,
+                        
+                        
+                        
+                 },
+                
+                    
+                
+     //          customFieldList: {
+		//				customField @( "xsi:type":"core:StringCustomFieldRef", "scriptId":"custbody_invoice_credit_body" ,"xmlns:core":"urn:core_2020_1.platform.webservices.netsuite.com"): {
+			//				value: p('invoice.creditBody')
+				//		}
+					//},
+					
+				ns6#customForm @( "internalId" : "57") : "" ,
+                ns6#companyName : "ON196589 - PS",				
+				ns6#entityStatus @("internalId" : "2") : "" ,				
+				ns6#parent @("internalId" : "305912") : "" ,
+				ns6#currency @("internalId" : "4") : "" ,
+				ns6#startDate : '2020-12-11T00:00:00.000Z' ,
+				ns6#subsidiary @("internalId" : "80") : "" ,
+				
+				
+                ns6#customFieldList:{
+                	
+                        customField  @("xsi:type":"BooleanCustomFieldRef", "scriptId":"custom_Exported_from_SFDC"):{ value : "true"},
+                        customField  @("xsi:type":"BooleanCustomFieldRef", "scriptId":"custom_Synced_To_SFDC"):{ value : "false"},
+                        
+                        customField  @("xsi:type":"StringCustomFieldRef", "scriptId":"custom_SFDC_Opportunity_stage"):{ value : "Closed Won"},
+                        
+                        customField  @("xsi:type":"DateCustomFieldRef", "scriptId":"custom_SFDC_Opportunity_Close_Date"):{ value : "true"},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_SFDC_Forecast_Category_InternalId"):{ value @("internalId":"6") : "" },
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_Region_InternalId"):{ value @("internalId":"132") : ""},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_Project_director_InternalId"):{ value @("internalId":"139651") : ""},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_Project_Category_InternalId"):{ value @("internalId":"109") : ""},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_Product_InternalId"):{ value @("internalId" : "139747"): ""},
+                        
+                        customField  @("xsi:type":"StringCustomFieldRef", "scriptId":"custom_Owner_InternalId"):{ value : "ON196589"},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_Cost_Centre_InternalId"):{ value @("internalId" : "221"): ""},
+                        
+                        customField  @("xsi:type":"BooleanCustomFieldRef", "scriptId":"custom_PS_Top_Opportunity"):{ value : "false"},
+                        
+                        customField  @("xsi:type":"StringCustomFieldRef", "scriptId":"custom_PS_Forecast_Probability"):{ value : "Closed"},
+                        
+                        customField  @("xsi:type":"DoubleCustomFieldRef", "scriptId":"custom_SFDC_Opportunity_Probility"):{ value : "100.0"},
+                        
+                        customField  @("xsi:type":"BooleanCustomFieldRef", "scriptId":"custom_Export_to_OpenAir"):{ value : "true"},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_OpenAir__Project_Stage_InternalId"):{ value @("internalId" : "3"): ""},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_OpenAir_Project_Template_InternalId"):{ value @("internalId" : "40"): ""},
+                        
+                        customField  @("xsi:type":"SelectCustomFieldRef", "scriptId":"custom_PS_Practice_Name_InternalId"):{ value @("internalId" : "19"): ""},
+                        
+                        customField  @("xsi:type":"StringCustomFieldRef", "scriptId":"custom_PS_Practice_Unique_Code"):{ value : "EUROPEB370"},
+                        
+                        customField  @("xsi:type":"StringCustomFieldRef", "scriptId":"custom_Project_Service_Type"):{ value : "Classic Expert Services-Consultancy"},
+                        
+}
+
+}
+}
+}
+}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="payloadXML" doc:id="13abef76-784b-438e-a070-4a1bcd9353e8">
+            <ee:message>
+            </ee:message>
+            <ee:variables>
+				<ee:set-variable variableName="soapHeader"><![CDATA[%dw 2.0
+output application/xml
+ns soap http://schemas.xmlsoap.org/soap/envelope/
+---
+{
+headers: payload.Envelope.Header
+
+
+}]]></ee:set-variable>
+				<ee:set-variable variableName="targetPayload" ><![CDATA[%dw 2.0
+output application/xml
+---
+payload]]></ee:set-variable>
+            
+</ee:variables>
+        </ee:transform>
+		<logger level="INFO" doc:name="Logger - Full payload " doc:id="6af19029-257f-44d8-a9da-5e5a39f039cc" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger- Envelope body" doc:id="7d26e7d2-0a17-4b6d-8425-cea7c806a51d" message="#[payload.Envelope.Body]"/>
+		<logger level="INFO" doc:name="soapHeader" doc:id="fcaf74da-6932-4717-b585-f2f9fab2aa63" message="#[vars.soapHeader]"/>
+		<try doc:name="Try" doc:id="28226b6b-a667-4f1f-930a-e8b13c3a2c0e" >
+			<wsc:consume doc:name="Calling Soap Request" doc:id="821693d9-b7cd-4016-96e9-1f36b29e0895" config-ref="Web_Service_Consumer_Config" operation="${soap.wsdlAddOperation}" target="responsePayload">
+			<wsc:message>
+				<wsc:body><![CDATA[#[payload.Envelope.Body]]]></wsc:body>
+				<wsc:headers><![CDATA[#[vars.soapHeader]]]></wsc:headers>
+			</wsc:message>
+		</wsc:consume>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="28788b4c-f53f-4e9d-b778-040b29b81e97" type="ANYPOINT-MQ:CONNECTIVITY, ANYPOINT-MQ:DESTINATION_NOT_FOUND, ANYPOINT-MQ:ILLEGAL_BODY, ANYPOINT-MQ:PUBLISHING, ANYPOINT-MQ:RETRY_EXHAUSTED, WSC:BAD_REQUEST, WSC:BAD_RESPONSE, WSC:CANNOT_DISPATCH, WSC:CONNECTIVITY, WSC:INVALID_WSDL, WSC:RETRY_EXHAUSTED, WSC:SOAP_FAULT, WSC:TIMEOUT">
+					<async doc:name="Async" doc:id="d63563fb-0e5c-4d5d-9f20-7524cd4aa2ef" >
+						<ee:transform doc:name="logData" doc:id="c3fd0809-98d2-46c2-8d84-9113a7ab6cc2">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="logData"><![CDATA[%dw 2.0
+output application/json
+---
+[{
+	
+"initialPayload" : vars.jobPayload,
+"payloadForTarget" : write(vars.targetPayload, "application/xml") as String,
+"isSuccess" : if (error != null) 0  else  1,
+"responseMsgFromTarget" : if (error != null) error.exception.detailMessage else write(vars.responsePayload) as String,
+"isError" : if (error != null) 1  else  0,
+"errorMsgFromTarget" :  error.exception.detailMessage,
+"txnDate" : now() as String {format: "YYYYMMdd"},
+"txnDateTime" : now(),
+"externalId" : vars.jobPayload[0].kimbleInvNumber,
+"errorType" : if(error.exception.errorMessage.typedValue.detail == null) null else error.exception.errorMessage.typedValue.detail,
+
+"interfaceName" : p('secure::invoiceLog') ,
+"sourceName" : "Kimble",
+"targetName" : "Netsuite",
+"apiName" : p('api.name'),
+"apiVersion" : p('api.version'),
+"correlationId" : vars.copyCustom_corrId,
+"resourcePath" : "/invoices",
+"httpMethod" : "post",
+}]]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+						<flow-ref doc:name="common-utils-publish-systemError-implementation" doc:id="6526e59b-699a-4322-a8d5-71d677b90561" name="common-utils-publish-systemError-implementation"/>
+						
+					</async>
+				</on-error-propagate>
+			</error-handler>
+		</try>
+		<logger level="INFO" doc:name="ResponsePayload" doc:id="4638ab79-23f4-4479-bffb-536b380eb793" message="#[responsePayload]"/>
+		<logger level="INFO" doc:name="Logger for error code" doc:id="4d1601ba-939b-4d1b-9d2c-680bbfcd5393" message="#[%dw 2.0
+output application/json
+---
+{
+       (code: vars.responsePayload.body.upsertListResponse.writeResponse.status.statusDetail.code) if (vars.responsePayload.body.upsertListResponse.writeResponse.status.statusDetail.code != null)
+       
+}]" category="${secure::log.logError}"/>
+		<flow-ref doc:name="log-after-outbound-request" doc:id="be7680df-4719-408f-813e-ceacdcddadb5" name="log-after-outbound-request"/>
+		<flow-ref doc:name="log-resource-flow-complete" doc:id="111a68a1-256b-49dc-a26a-5c5b452330b9" name="log-resource-flow-complete"/>
+	</sub-flow>
+</mule>
+
